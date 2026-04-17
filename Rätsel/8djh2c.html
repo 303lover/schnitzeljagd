@@ -1,61 +1,3 @@
-
-kannst du eine art puzzle bauen nur mit html alsao ein rätsel puzzel was am ende einen code ergibt
-
-12:18
-Bevor ich loslege, hätte ich ein paar klärende Fragen, damit das Puzzle wirklich zu dir passt:
-
-F: Welche Art von Rätsel-Puzzle schwebt dir vor?
-A: Kryptografie (Codes entschlüsseln)
-
-F: Wie schwer soll es sein?
-A: Einfach (5 Min.)
-
-F: Soll am Ende etwas Bestimmtes passieren, wenn der Code richtig ist?
-A: Geheime Nachricht enthüllen
-
-12:19
-Perfekt! Ich baue dir ein Krypto-Rätsel mit drei kleinen Stationen, die zusammen einen 4-stelligen Code ergeben. Am Ende wird eine geheime Nachricht enthüllt.
-
-
-
-Viel Spaß beim Knobeln! 🔍
-
-Drei Stationen, drei Techniken: eine klassische Cäsar-Verschlüsselung, ein kleines Zahlenrätsel und eine Buchstaben-Position. Zusammen ergeben sie einen 4-stelligen Code, der die geheime Nachricht freischaltet.
-
-Falls du möchtest, kann ich:
-
-den Schwierigkeitsgrad erhöhen (z. B. mit Vigenère, Morse oder Binär),
-ein Thema einbauen (Halloween, Geburtstag, Weihnachten, Detektiv-Story …),
-oder die geheime Nachricht durch eine eigene ersetzen – sag mir einfach, was am Ende stehen soll.
-danke, gib mir bitte dne source code das ich ihn auf meine website stellen kann. mkaiere die stellen die ich bearbeiten kann (also was am ende angezeigt wird
-
-12:20
-Klar, ich baue dir eine eigenständige HTML-Datei mit klaren Markierungen, wo du die geheime Nachricht und andere Texte anpassen kannst.
-
-
-Datei erstellt, datei lesen
-Datei erstellt, datei lesen
-Hier ist die fertige HTML-Datei – komplett eigenständig, kein externes CSS oder JavaScript nötig. Einfach per FTP/CMS hochladen oder den Inhalt in einen HTML-Block einer bestehenden Seite einfügen.
-
-Im Code findest du Kommentarblöcke wie <!-- ====== --> an genau den Stellen, die du anpassen kannst:
-
-Titel & Untertitel (Zeile ~158)
-Geheime Nachricht am Ende (Zeile ~226) – hier kannst du den Erfolgstext, die enthüllte Botschaft und die Fußzeile frei ändern
-Design / Farben ganz oben im :root-Block – z. B. Akzentfarbe, Schriftarten, Hintergrund
-Lösungs-Logik im <script>-Bereich – falls du eigene Rätsel einbaust, musst du dort die richtigen Antworten anpassen (HAUS, 7, 07 und den Endcode 2707)
-Sag mir Bescheid, falls du die Rätsel selbst ändern möchtest und ich die Lösungen entsprechend mit anpassen soll.
-
-
-Krypto raetsel
-Code · HTML 
-
-
-
-
-Claude ist eine KI und kann Fehler machen. Bitte überprüfe die Antworten.
-Krypto raetsel · HTML
-Kopieren
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -96,10 +38,10 @@ Kopieren
     .container { max-width: 640px; margin: 0 auto; }
     h1 { font-size: 22px; font-weight: 500; margin: 0 0 0.25rem; text-align: center; }
     .subtitle { font-size: 13px; color: var(--text-muted); margin: 0 0 1.5rem; text-align: center; }
- 
+
     .progress { display: flex; gap: 8px; margin-bottom: 1.5rem; justify-content: center; }
     .progress div { width: 36px; height: 4px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
- 
+
     .station {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -156,7 +98,7 @@ Kopieren
     .feedback { font-size: 13px; margin: 0.5rem 0 0; min-height: 18px; }
     .feedback.ok { color: var(--success-text); }
     .feedback.err { color: var(--danger-text); }
- 
+
     .final {
       background: var(--surface-alt);
       border-radius: var(--radius-lg);
@@ -172,7 +114,7 @@ Kopieren
       margin-bottom: 1rem;
     }
     #final-input { width: 140px; flex: none; text-align: center; font-family: var(--font-mono); letter-spacing: 4px; }
- 
+
     .reveal {
       display: none;
       background: var(--success-bg);
@@ -194,20 +136,20 @@ Kopieren
 </head>
 <body>
   <div class="container">
- 
+
     <!-- ============================================================
          TITEL UND UNTERTITEL — frei anpassbar
          ============================================================ -->
     <h1>Das Krypto-Rätsel</h1>
     <p class="subtitle">Löse alle drei Stationen, um den 4-stelligen Code zu finden</p>
- 
+
     <div class="progress">
       <div id="prog-1"></div>
       <div id="prog-2"></div>
       <div id="prog-3"></div>
       <div id="prog-4"></div>
     </div>
- 
+
     <!-- Station 1 -->
     <div class="station">
       <div class="station-header">
@@ -223,7 +165,7 @@ Kopieren
       </div>
       <p id="s1-feedback" class="feedback"></p>
     </div>
- 
+
     <!-- Station 2 -->
     <div class="station">
       <div class="station-header">
@@ -239,7 +181,7 @@ Kopieren
       </div>
       <p id="s2-feedback" class="feedback"></p>
     </div>
- 
+
     <!-- Station 3 -->
     <div class="station">
       <div class="station-header">
@@ -253,7 +195,7 @@ Kopieren
       </div>
       <p id="s3-feedback" class="feedback"></p>
     </div>
- 
+
     <!-- Finale Eingabe -->
     <div class="final">
       <p>Dein gefundener Code</p>
@@ -264,7 +206,7 @@ Kopieren
       </div>
       <p id="final-feedback" class="feedback"></p>
     </div>
- 
+
     <!-- ============================================================
          GEHEIME NACHRICHT — wird angezeigt, wenn der Code stimmt
          Hier kannst du den Erfolgstext, die geheime Nachricht
@@ -281,9 +223,9 @@ Kopieren
     <!-- ============================================================
          ENDE: GEHEIME NACHRICHT
          ============================================================ -->
- 
+
   </div>
- 
+
   <script>
     /* ============================================================
        LÖSUNGS-LOGIK
@@ -292,7 +234,7 @@ Kopieren
        ============================================================ */
     const solved = { s1: false, s2: false, s3: false };
     const code = { d1: '_', d2: '_', d3: '_', d4: '_' };
- 
+
     function updateProgress() {
       const done = '#0f6e56';
       const empty = 'rgba(0,0,0,0.12)';
@@ -301,18 +243,18 @@ Kopieren
       document.getElementById('prog-3').style.background = solved.s3 ? done : empty;
       document.getElementById('prog-4').style.background = (solved.s1 && solved.s2 && solved.s3) ? done : empty;
     }
- 
+
     function updateCodeDisplay() {
       document.getElementById('code-display').textContent =
         `${code.d1} ${code.d2} ${code.d3} ${code.d4}`;
     }
- 
+
     function setFeedback(id, msg, ok) {
       const el = document.getElementById(id);
       el.textContent = msg;
       el.className = 'feedback ' + (ok ? 'ok' : 'err');
     }
- 
+
     function checkS1() {
       const val = document.getElementById('s1-input').value.trim().toUpperCase();
       if (val === 'HAUS') {
@@ -325,7 +267,7 @@ Kopieren
         setFeedback('s1-feedback', '✗ Nicht ganz. Tipp: K → ?, D → ?, X → ?, V → ?', false);
       }
     }
- 
+
     function checkS2() {
       const val = parseInt(document.getElementById('s2-input').value, 10);
       if (val === 7) {
@@ -338,7 +280,7 @@ Kopieren
         setFeedback('s2-feedback', '✗ Rechne nochmal: erst Klammer, dann Subtraktion.', false);
       }
     }
- 
+
     function checkS3() {
       const val = document.getElementById('s3-input').value.trim();
       if (val === '07' || val === '7') {
@@ -352,7 +294,7 @@ Kopieren
         setFeedback('s3-feedback', '✗ Zähle: A=1, B=2, C=3, D=4, E=5, F=6, G=?', false);
       }
     }
- 
+
     function checkFinal() {
       const val = document.getElementById('final-input').value.trim();
       if (!solved.s1 || !solved.s2 || !solved.s3) {
