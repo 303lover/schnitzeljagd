@@ -1,0 +1,372 @@
+
+kannst du eine art puzzle bauen nur mit html alsao ein rätsel puzzel was am ende einen code ergibt
+
+12:18
+Bevor ich loslege, hätte ich ein paar klärende Fragen, damit das Puzzle wirklich zu dir passt:
+
+F: Welche Art von Rätsel-Puzzle schwebt dir vor?
+A: Kryptografie (Codes entschlüsseln)
+
+F: Wie schwer soll es sein?
+A: Einfach (5 Min.)
+
+F: Soll am Ende etwas Bestimmtes passieren, wenn der Code richtig ist?
+A: Geheime Nachricht enthüllen
+
+12:19
+Perfekt! Ich baue dir ein Krypto-Rätsel mit drei kleinen Stationen, die zusammen einen 4-stelligen Code ergeben. Am Ende wird eine geheime Nachricht enthüllt.
+
+
+
+Viel Spaß beim Knobeln! 🔍
+
+Drei Stationen, drei Techniken: eine klassische Cäsar-Verschlüsselung, ein kleines Zahlenrätsel und eine Buchstaben-Position. Zusammen ergeben sie einen 4-stelligen Code, der die geheime Nachricht freischaltet.
+
+Falls du möchtest, kann ich:
+
+den Schwierigkeitsgrad erhöhen (z. B. mit Vigenère, Morse oder Binär),
+ein Thema einbauen (Halloween, Geburtstag, Weihnachten, Detektiv-Story …),
+oder die geheime Nachricht durch eine eigene ersetzen – sag mir einfach, was am Ende stehen soll.
+danke, gib mir bitte dne source code das ich ihn auf meine website stellen kann. mkaiere die stellen die ich bearbeiten kann (also was am ende angezeigt wird
+
+12:20
+Klar, ich baue dir eine eigenständige HTML-Datei mit klaren Markierungen, wo du die geheime Nachricht und andere Texte anpassen kannst.
+
+
+Datei erstellt, datei lesen
+Datei erstellt, datei lesen
+Hier ist die fertige HTML-Datei – komplett eigenständig, kein externes CSS oder JavaScript nötig. Einfach per FTP/CMS hochladen oder den Inhalt in einen HTML-Block einer bestehenden Seite einfügen.
+
+Im Code findest du Kommentarblöcke wie <!-- ====== --> an genau den Stellen, die du anpassen kannst:
+
+Titel & Untertitel (Zeile ~158)
+Geheime Nachricht am Ende (Zeile ~226) – hier kannst du den Erfolgstext, die enthüllte Botschaft und die Fußzeile frei ändern
+Design / Farben ganz oben im :root-Block – z. B. Akzentfarbe, Schriftarten, Hintergrund
+Lösungs-Logik im <script>-Bereich – falls du eigene Rätsel einbaust, musst du dort die richtigen Antworten anpassen (HAUS, 7, 07 und den Endcode 2707)
+Sag mir Bescheid, falls du die Rätsel selbst ändern möchtest und ich die Lösungen entsprechend mit anpassen soll.
+
+
+Krypto raetsel
+Code · HTML 
+
+
+
+
+Claude ist eine KI und kann Fehler machen. Bitte überprüfe die Antworten.
+Krypto raetsel · HTML
+Kopieren
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krypto-Rätsel</title>
+  <style>
+    /* ============================================================
+       DESIGN / FARBEN — du kannst hier Farben und Schriften ändern
+       ============================================================ */
+    :root {
+      --bg: #f5f5f0;
+      --surface: #ffffff;
+      --surface-alt: #f1efe8;
+      --border: rgba(0,0,0,0.12);
+      --text: #1a1a1a;
+      --text-muted: #6b6b66;
+      --accent-bg: #e6f1fb;
+      --accent-text: #0c447c;
+      --success-bg: #e1f5ee;
+      --success-text: #085041;
+      --danger-text: #a32d2d;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --font-serif: Georgia, "Times New Roman", serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+    h1 { font-size: 22px; font-weight: 500; margin: 0 0 0.25rem; text-align: center; }
+    .subtitle { font-size: 13px; color: var(--text-muted); margin: 0 0 1.5rem; text-align: center; }
+ 
+    .progress { display: flex; gap: 8px; margin-bottom: 1.5rem; justify-content: center; }
+    .progress div { width: 36px; height: 4px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
+ 
+    .station {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .station-header { display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem; }
+    .badge {
+      background: var(--accent-bg);
+      color: var(--accent-text);
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+    }
+    .station-type { font-size: 13px; color: var(--text-muted); }
+    .station p { margin: 0 0 0.75rem; font-size: 14px; }
+    .puzzle-box {
+      background: var(--surface-alt);
+      padding: 12px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 0.75rem;
+    }
+    .input-row { display: flex; gap: 8px; align-items: center; margin-top: 0.75rem; }
+    input {
+      flex: 1;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      color: var(--text);
+    }
+    input:focus { outline: 2px solid var(--accent-text); outline-offset: -1px; }
+    button {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover { background: var(--surface-alt); }
+    button:active { transform: scale(0.98); }
+    .feedback { font-size: 13px; margin: 0.5rem 0 0; min-height: 18px; }
+    .feedback.ok { color: var(--success-text); }
+    .feedback.err { color: var(--danger-text); }
+ 
+    .final {
+      background: var(--surface-alt);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .final p { font-size: 13px; color: var(--text-muted); margin: 0 0 0.5rem; }
+    #code-display {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      letter-spacing: 8px;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    #final-input { width: 140px; flex: none; text-align: center; font-family: var(--font-mono); letter-spacing: 4px; }
+ 
+    .reveal {
+      display: none;
+      background: var(--success-bg);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.25rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .reveal-status { font-size: 13px; color: var(--success-text); margin: 0 0 0.5rem; font-weight: 500; }
+    .reveal-message {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--success-text);
+      margin: 0.75rem 0;
+      line-height: 1.4;
+    }
+    .reveal-footer { font-size: 12px; color: var(--success-text); margin: 0.75rem 0 0; opacity: 0.8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+ 
+    <!-- ============================================================
+         TITEL UND UNTERTITEL — frei anpassbar
+         ============================================================ -->
+    <h1>Das Krypto-Rätsel</h1>
+    <p class="subtitle">Löse alle drei Stationen, um den 4-stelligen Code zu finden</p>
+ 
+    <div class="progress">
+      <div id="prog-1"></div>
+      <div id="prog-2"></div>
+      <div id="prog-3"></div>
+      <div id="prog-4"></div>
+    </div>
+ 
+    <!-- Station 1 -->
+    <div class="station">
+      <div class="station-header">
+        <span class="badge">Station 1</span>
+        <span class="station-type">Cäsar-Verschlüsselung (Verschiebung +3)</span>
+      </div>
+      <p>Entschlüssele dieses Wort. Jeder Buchstabe wurde im Alphabet um 3 Stellen nach vorne verschoben (also wurde z.&nbsp;B. aus A → D).</p>
+      <div class="puzzle-box">KDXV</div>
+      <p>Das entschlüsselte Wort hat <b>4 Buchstaben</b>. Die <b>Anzahl Vokale</b> in diesem Wort ist die <b>erste Ziffer</b> deines Codes.</p>
+      <div class="input-row">
+        <input id="s1-input" type="text" placeholder="Wort eingeben" maxlength="10" style="text-transform: uppercase;" />
+        <button onclick="checkS1()">Prüfen</button>
+      </div>
+      <p id="s1-feedback" class="feedback"></p>
+    </div>
+ 
+    <!-- Station 2 -->
+    <div class="station">
+      <div class="station-header">
+        <span class="badge">Station 2</span>
+        <span class="station-type">Zahlenrätsel</span>
+      </div>
+      <p>Löse die Gleichung – die Lösung ist eine einstellige Zahl:</p>
+      <div class="puzzle-box">(7 × 8) − 49 = ?</div>
+      <p>Das Ergebnis ist die <b>zweite Ziffer</b> deines Codes.</p>
+      <div class="input-row">
+        <input id="s2-input" type="number" placeholder="Zahl eingeben" min="0" max="9" />
+        <button onclick="checkS2()">Prüfen</button>
+      </div>
+      <p id="s2-feedback" class="feedback"></p>
+    </div>
+ 
+    <!-- Station 3 -->
+    <div class="station">
+      <div class="station-header">
+        <span class="badge">Station 3</span>
+        <span class="station-type">Buchstaben-Position</span>
+      </div>
+      <p>Welche Position hat der Buchstabe <b>G</b> im Alphabet (A = 1, B = 2, …)? Nimm davon die <b>Quersumme</b> – das sind die letzten beiden Ziffern deines Codes (zweistellig, ggf. mit führender Null).</p>
+      <div class="input-row">
+        <input id="s3-input" type="text" placeholder="z.B. 12" maxlength="2" />
+        <button onclick="checkS3()">Prüfen</button>
+      </div>
+      <p id="s3-feedback" class="feedback"></p>
+    </div>
+ 
+    <!-- Finale Eingabe -->
+    <div class="final">
+      <p>Dein gefundener Code</p>
+      <div id="code-display">_ _ _ _</div>
+      <div class="input-row" style="justify-content: center;">
+        <input id="final-input" type="text" placeholder="Code eingeben" maxlength="4" />
+        <button onclick="checkFinal()">Enthüllen</button>
+      </div>
+      <p id="final-feedback" class="feedback"></p>
+    </div>
+ 
+    <!-- ============================================================
+         GEHEIME NACHRICHT — wird angezeigt, wenn der Code stimmt
+         Hier kannst du den Erfolgstext, die geheime Nachricht
+         und die Fußzeile beliebig anpassen.
+         ============================================================ -->
+    <div id="reveal" class="reveal">
+      <p class="reveal-status">✓ Code korrekt – geheime Nachricht entschlüsselt</p>
+      <p class="reveal-message">
+        "Wer sucht, der findet –<br/>
+        und du hast es geschafft."
+      </p>
+      <p class="reveal-footer">🔓 Rätsel gelöst</p>
+    </div>
+    <!-- ============================================================
+         ENDE: GEHEIME NACHRICHT
+         ============================================================ -->
+ 
+  </div>
+ 
+  <script>
+    /* ============================================================
+       LÖSUNGS-LOGIK
+       Wenn du die Rätsel selbst änderst, musst du auch die
+       Lösungen unten anpassen (HAUS, 7, 07 → Endcode 2707).
+       ============================================================ */
+    const solved = { s1: false, s2: false, s3: false };
+    const code = { d1: '_', d2: '_', d3: '_', d4: '_' };
+ 
+    function updateProgress() {
+      const done = '#0f6e56';
+      const empty = 'rgba(0,0,0,0.12)';
+      document.getElementById('prog-1').style.background = solved.s1 ? done : empty;
+      document.getElementById('prog-2').style.background = solved.s2 ? done : empty;
+      document.getElementById('prog-3').style.background = solved.s3 ? done : empty;
+      document.getElementById('prog-4').style.background = (solved.s1 && solved.s2 && solved.s3) ? done : empty;
+    }
+ 
+    function updateCodeDisplay() {
+      document.getElementById('code-display').textContent =
+        `${code.d1} ${code.d2} ${code.d3} ${code.d4}`;
+    }
+ 
+    function setFeedback(id, msg, ok) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.className = 'feedback ' + (ok ? 'ok' : 'err');
+    }
+ 
+    function checkS1() {
+      const val = document.getElementById('s1-input').value.trim().toUpperCase();
+      if (val === 'HAUS') {
+        code.d1 = '2';
+        solved.s1 = true;
+        setFeedback('s1-feedback', '✓ Richtig! HAUS hat 2 Vokale → erste Ziffer: 2', true);
+        updateProgress();
+        updateCodeDisplay();
+      } else {
+        setFeedback('s1-feedback', '✗ Nicht ganz. Tipp: K → ?, D → ?, X → ?, V → ?', false);
+      }
+    }
+ 
+    function checkS2() {
+      const val = parseInt(document.getElementById('s2-input').value, 10);
+      if (val === 7) {
+        code.d2 = '7';
+        solved.s2 = true;
+        setFeedback('s2-feedback', '✓ Richtig! 56 − 49 = 7 → zweite Ziffer: 7', true);
+        updateProgress();
+        updateCodeDisplay();
+      } else {
+        setFeedback('s2-feedback', '✗ Rechne nochmal: erst Klammer, dann Subtraktion.', false);
+      }
+    }
+ 
+    function checkS3() {
+      const val = document.getElementById('s3-input').value.trim();
+      if (val === '07' || val === '7') {
+        code.d3 = '0';
+        code.d4 = '7';
+        solved.s3 = true;
+        setFeedback('s3-feedback', '✓ Richtig! G ist Buchstabe Nr. 7, Quersumme = 7 → "07"', true);
+        updateProgress();
+        updateCodeDisplay();
+      } else {
+        setFeedback('s3-feedback', '✗ Zähle: A=1, B=2, C=3, D=4, E=5, F=6, G=?', false);
+      }
+    }
+ 
+    function checkFinal() {
+      const val = document.getElementById('final-input').value.trim();
+      if (!solved.s1 || !solved.s2 || !solved.s3) {
+        setFeedback('final-feedback', 'Erst alle drei Stationen lösen!', false);
+        return;
+      }
+      if (val === '2707') {
+        document.getElementById('reveal').style.display = 'block';
+        setFeedback('final-feedback', '', true);
+        document.getElementById('reveal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        setFeedback('final-feedback', '✗ Falscher Code. Schau nochmal nach den Ziffern oben.', false);
+      }
+    }
+  </script>
+</body>
+</html>
