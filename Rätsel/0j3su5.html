@@ -1,127 +1,321 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Das Wasser-Orakel 1</title>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>R1 Böhmischer GPX-Schatz R4 T1</title>
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
+    :root {
+      font-family: "Comic Sans MS", "Comic Sans", cursive;
+      color: #ffffff;
       background:
-        radial-gradient(circle at center, #3b2614 0%, #160d07 70%);
-      color: #f4df9c;
-      font-family: "Times New Roman", serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+        linear-gradient(135deg, #11457e 0 33%, transparent 33%),
+        linear-gradient(180deg, #ffffff 0 50%, #d7141a 50% 100%);
     }
 
-    .site {
-      width: min(720px, 92vw);
-      padding: 28px;
-      border: 6px ridge #9b6b28;
-      background: #241509;
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+      animation: backgroundShake 0.22s infinite alternate;
+    }
+
+    main {
+      width: min(100%, 560px);
+      background: #111111;
+      border: 8px ridge #ffffff;
+      border-radius: 4px;
       box-shadow:
-        0 0 30px #000,
-        inset 0 0 35px rgba(255, 190, 80, 0.12);
+        0 0 0 8px #d7141a,
+        0 0 0 14px #11457e,
+        0 0 38px 18px rgba(255, 255, 255, 0.65);
+      padding: 30px;
+      transform: rotate(-1deg);
     }
 
     h1 {
-      margin: 0 0 18px;
-      font-size: clamp(2rem, 7vw, 4rem);
-      color: #ffcc55;
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 9vw, 4rem);
+      line-height: 0.9;
+      color: #ffffff;
+      text-align: center;
       text-shadow:
-        3px 3px 0 #000,
-        0 0 12px #b33;
-      letter-spacing: 2px;
+        4px 4px 0 #d7141a,
+        -4px -4px 0 #11457e,
+        0 0 14px #ffffff;
+      animation: wobble 0.45s infinite alternate;
     }
 
-    .scroll {
-      margin: 0 auto 22px;
-      padding: 18px;
-      max-width: 560px;
-      background: #d6b56d;
-      color: #2a1607;
-      border: 4px double #5c3514;
-      box-shadow: inset 0 0 20px rgba(80, 40, 0, 0.45);
-      font-size: 1.35rem;
-      line-height: 1.45;
-    }
-
-    .scroll p {
-      margin: 0;
-    }
-
-    .image-box {
-      margin-top: 20px;
-      padding: 12px;
-      border: 5px groove #7b1111;
-      background: #090909;
-    }
-
-    img {
+    .badge {
       display: block;
-      width: 100%;
-      max-width: 520px;
-      margin: 0 auto;
-      border: 3px solid #ffdf8a;
-      image-rendering: auto;
+      width: fit-content;
+      margin: 0 auto 18px;
+      padding: 7px 13px;
+      background: #d7141a;
+      color: #ffffff;
+      border: 4px dashed #ffffff;
+      font-size: 1.05rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      box-shadow: 0 0 0 5px #11457e;
+      animation: blink 0.7s steps(1) infinite;
     }
 
-    .warning {
-      margin-top: 18px;
-      color: #ff7777;
-      font-size: 0.95rem;
-      letter-spacing: 1px;
+    p {
+      margin: 0 0 18px;
+      color: #ffffff;
+      line-height: 1.45;
+      text-align: center;
+      font-size: 1.12rem;
+      text-shadow: 2px 2px 0 #000000;
+    }
+
+    .poem {
+      margin: 20px 0 24px;
+      padding: 16px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #11457e,
+        #11457e 10px,
+        #d7141a 10px,
+        #d7141a 20px,
+        #ffffff 20px,
+        #ffffff 30px
+      );
+      border: 6px groove #ffffff;
+      color: #ffffcc;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 900;
+      line-height: 1.45;
+      text-shadow:
+        2px 2px 0 #000000,
+        0 0 8px #000000;
+      transform: rotate(1deg);
+    }
+
+    .poem strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #ffffff;
+      font-size: 1.25rem;
       text-transform: uppercase;
-      animation: blink 1.2s infinite;
+      text-decoration: underline wavy #d7141a;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 900;
+      color: #ffffff;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow:
+        3px 3px 0 #d7141a,
+        -2px -2px 0 #11457e;
+    }
+
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 15px 14px;
+      border: 5px inset #11457e;
+      border-radius: 0;
+      background: #ffffff;
+      color: #d7141a;
+      font-family: inherit;
+      font-size: 1.3rem;
+      font-weight: 900;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px #ffffff;
+    }
+
+    input:focus {
+      outline: 6px dotted #d7141a;
+      border-color: #ffffff;
+    }
+
+    button, a.download-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 16px;
+      padding: 16px;
+      border: 6px outset #ffffff;
+      border-radius: 0;
+      background: linear-gradient(90deg, #11457e, #ffffff, #d7141a, #ffffff, #11457e);
+      color: #111111;
+      font-family: inherit;
+      font-size: 1.35rem;
+      font-weight: 900;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-shadow: 2px 2px 0 rgba(255,255,255,0.75);
+      animation: pulse 0.55s infinite alternate;
+    }
+
+    button:hover, a.download-button:hover {
+      filter: saturate(2) contrast(1.3);
+      transform: scale(1.04) rotate(1deg);
+    }
+
+    .message {
+      min-height: 28px;
+      margin-top: 16px;
+      font-weight: 900;
+      text-align: center;
+      font-size: 1.15rem;
+      text-shadow: 2px 2px 0 #000000;
+    }
+
+    .message.error {
+      color: #ffdddd;
+      animation: wobble 0.2s infinite alternate;
+    }
+
+    .message.success {
+      color: #ffffff;
+      animation: blink 0.5s steps(1) infinite;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .marquee {
+      margin-top: 20px;
+      overflow: hidden;
+      border: 4px solid #ffffff;
+      background: #11457e;
+      color: #ffffff;
+      white-space: nowrap;
+      font-weight: 900;
+      box-shadow: 0 0 0 4px #d7141a;
+    }
+
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll 9s linear infinite;
     }
 
     @keyframes blink {
-      50% {
-        opacity: 0.35;
-      }
+      50% { opacity: 0; }
     }
 
-    .footer {
-      margin-top: 16px;
-      font-size: 0.85rem;
-      color: #a8894d;
+    @keyframes wobble {
+      from { transform: rotate(-2deg) scale(1); }
+      to { transform: rotate(2deg) scale(1.03); }
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.035); }
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+
+    @keyframes backgroundShake {
+      from { background-position: 0 0; }
+      to { background-position: 9px 4px; }
     }
   </style>
 </head>
-
 <body>
-  <main class="site">
-    <h1>☩ Das Wasser-Orakel ☩</h1>
+  <main>
+    <span class="badge">První hádanka! Böhmischer Startschuss!</span>
+    <h1>R1.GPX</h1>
+    <p>Willkommen beim ersten Rätsel in Tschechien. Gib die geheimen Lösungsbuchstaben ein und öffne den Track wie ein durstiger Ritter das Burgtor.</p>
 
-    <section class="scroll">
-      <p>
-        Höret, Wandersmann, höret fein,<br>
-        wo rotes Zeichen trägt den Schein.<br><br>
-
-        Dort, wo das Wasser heimlich wacht,<br>
-        und tief im Grund die Quelle lacht,<br>
-        wo stumm das Nass zur Rettung speiht,<br>
-        liegt Euch das nächste Rätsel bereit.
-      </p>
-    </section>
-
-    <section class="image-box">
-      <img src="hydrantenschild.jpeg" alt="Hydrantenschild">
-    </section>
-
-    <div class="warning">
-      Suchet dort, wo das Wasser speiht.
+    <div class="poem">
+      <strong>Ein trashig-mittelalterliches Lob</strong>
+      O Tschechien, Land von Burg und Stein,<br>
+      dein Bier läuft gülden in den Krug hinein.<br>
+      Der Ritter ruft: „Noch eins, bei Prag!“<br>
+      und reitet schief in diesen Tag.<br>
+      Aus Böhmens Fass kommt Hopfenmacht,<br>
+      die selbst den Drachen freundlich macht.<br>
+      Wer Rätsel löst und Bier verehrt,<br>
+      dem sei die GPX nunmehr beschert.
     </div>
 
-    <div class="footer">
-      Volkspark Dresden · Questtafel der niederen Ordnung
+    <form id="unlockForm">
+      <label for="solution">Böhmischer Geheim-Code</label>
+      <input id="solution" name="solution" type="text" autocomplete="off" placeholder="HIER DEN CODE REINHÄMMERN" />
+      <button type="submit">Burgtor prüfen!!!</button>
+    </form>
+
+    <div id="message" class="message" aria-live="polite"></div>
+
+    <a id="downloadLink" class="download-button hidden" href="#" download="R1.gpx">R1.gpx aus dem Burgkeller ziehen</a>
+
+    <div class="marquee">
+      <span>+++ ČESKO! ČESKO! ČESKO! +++ BIER STARK +++ RÄTSEL ERBARMUNGSLOS +++ PASSWORT IST NOCH TEST +++</span>
     </div>
   </main>
+
+  <script>
+    const correctSolution = "TEST";
+
+    // Platzhalter-GPX. Den Inhalt später durch die echte R1.gpx ersetzen.
+    const gpxContent = `<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="R1 Czech Trash Download Website" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>R1</name>
+  </metadata>
+  <trk>
+    <name>R1 Test Track</name>
+    <trkseg>
+      <trkpt lat="50.075539" lon="14.437800">
+        <ele>200</ele>
+      </trkpt>
+      <trkpt lat="50.076000" lon="14.438500">
+        <ele>205</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>`;
+
+    const form = document.getElementById("unlockForm");
+    const input = document.getElementById("solution");
+    const message = document.getElementById("message");
+    const downloadLink = document.getElementById("downloadLink");
+
+    function createGpxDownloadUrl() {
+      const blob = new Blob([gpxContent], { type: "application/gpx+xml" });
+      return URL.createObjectURL(blob);
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const enteredSolution = input.value.trim().toUpperCase();
+
+      if (enteredSolution === correctSolution) {
+        downloadLink.href = createGpxDownloadUrl();
+        downloadLink.classList.remove("hidden");
+        message.textContent = "SPRÁVNĚ!!! DAS BURGTOR IST OFFEN!!!";
+        message.className = "message success";
+      } else {
+        downloadLink.classList.add("hidden");
+        downloadLink.removeAttribute("href");
+        message.textContent = "ŠPATNĚ!!! DER KELLERMEISTER VERWEIGERT DEN TRACK!!!";
+        message.className = "message error";
+      }
+    });
+  </script>
 </body>
 </html>
+
   <!-- Nächster Link: 3jd7ew.html -->
