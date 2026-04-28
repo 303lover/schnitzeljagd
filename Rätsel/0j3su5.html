@@ -1,13 +1,371 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Rätsel 1</title>
-</head>
-<body>
-  <h1>Rätsel 1</h1>
-  <p>Ich spreche ohne Mund und höre ohne Ohren. Was bin ich?</p>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Volkspark-Rätsel 1</title>
 
-  <!-- Lösung: Echo -->
-  <!-- Nächster Link: 3jd7ew.html -->
+  <style>
+    :root {
+      --bg: #0e1b14;
+      --card: rgba(255, 255, 255, 0.09);
+      --card-border: rgba(255, 255, 255, 0.18);
+      --text: #f7f2e8;
+      --muted: #cfc6b4;
+      --red: #d91522;
+      --blue: #6ecbff;
+      --green: #93d17f;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(110, 203, 255, 0.16), transparent 35%),
+        radial-gradient(circle at 90% 90%, rgba(217, 21, 34, 0.18), transparent 32%),
+        linear-gradient(135deg, #07110d, #183526 52%, #0a1711);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle, black, transparent 82%);
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 44px 0 56px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(2.4rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+    }
+
+    h1 span {
+      color: var(--blue);
+      text-shadow: 0 0 28px rgba(110,203,255,0.35);
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 1.08rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      box-shadow: 0 24px 70px var(--shadow);
+      border-radius: 30px;
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .image-card {
+      padding: 22px;
+      position: relative;
+    }
+
+    .badge {
+      position: absolute;
+      top: 28px;
+      left: 28px;
+      z-index: 2;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #e4222d, #891017);
+      color: white;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      box-shadow: 0 12px 34px rgba(217,21,34,0.35);
+      transform: rotate(-2deg);
+    }
+
+    .image-frame {
+      padding: 14px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      border-radius: 18px;
+      background: white;
+    }
+
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .number-box {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+    }
+
+    .number-box strong {
+      display: block;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1;
+      color: white;
+    }
+
+    .number-box span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .text-card {
+      padding: 32px;
+      position: relative;
+    }
+
+    .text-card::after {
+      content: "11 → 37";
+      position: absolute;
+      right: -18px;
+      bottom: 14px;
+      font-size: 4.8rem;
+      font-weight: 950;
+      color: rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      letter-spacing: -0.04em;
+    }
+
+    .riddle {
+      margin: 0;
+      padding: 24px;
+      border-left: 4px solid var(--blue);
+      border-radius: 20px;
+      background: rgba(0,0,0,0.2);
+      line-height: 1.78;
+      font-size: 1.08rem;
+    }
+
+    .hint {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(147,209,127,0.1);
+      border: 1px solid rgba(147,209,127,0.24);
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .hint strong {
+      color: var(--green);
+    }
+
+    .route {
+      margin-top: 24px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .step-icon {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red), #8d1018);
+      font-weight: 900;
+    }
+
+    .step-text {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .step-text strong {
+      color: white;
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding: 22px 26px;
+      color: var(--muted);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .numbers {
+        grid-template-columns: 1fr;
+      }
+
+      .text-card::after {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header>
+      <div class="kicker">Volkspark Dresden · kleines Suchrätsel</div>
+      <h1>Das rote Schild<br><span>kennt den Weg.</span></h1>
+      <p class="subtitle">
+        Zwischen Bäumen, Wegen und Parkgeräuschen wartet ein Hinweis,
+        der aussieht wie Technik — aber heute ist er deine Schatzkarte.
+      </p>
+    </header>
+
+    <section class="layout">
+      <article class="card image-card">
+        <div class="badge">HINWEIS</div>
+
+        <div class="image-frame">
+          <!-- Bilddatei neben die HTML-Datei legen -->
+          <img src="hydrantenschild.jpg" alt="Rätselbild mit rotem Hydrantenschild">
+
+          <!-- Alternative für Base64:
+          <img src="data:image/jpeg;base64,HIER_DEIN_BASE64_STRING" alt="Rätselbild mit rotem Hydrantenschild">
+          -->
+        </div>
+
+        <div class="numbers">
+          <div class="number-box">
+            <strong>11 m</strong>
+            <span>zuerst nach vorne</span>
+          </div>
+          <div class="number-box">
+            <strong>37 m</strong>
+            <span>dann zur Seite</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card text-card">
+        <h2>Der Spruch zum Schild</h2>
+
+        <p class="riddle">
+          Ein Schild in Rot, ganz still und fein,<br>
+          will heute deine Karte sein.<br>
+          Kein X, kein Pfeil, kein goldner Stein —<br>
+          nur Zahlen führen dich hinein.<br><br>
+
+          Erst geh nach vorn, elf Meter weit,<br>
+          der Park hält schon den Weg bereit.<br>
+          Dann schau zur Seite, nicht zu knapp,<br>
+          siebenunddreißig Meter ab.<br><br>
+
+          Dort, wo der Hinweis leise endet,<br>
+          und sich dein Blick zum Boden wendet,<br>
+          liegt nicht der Schatz aus Gold gemacht —<br>
+          doch etwas, das im Stillen wacht.
+        </p>
+
+        <div class="hint">
+          <strong>Kleiner Tipp:</strong>
+          Nimm das Schild als Startpunkt. Die Zahlen sind keine Deko.
+          Sie sagen dir, wie weit du dich bewegen musst.
+        </div>
+
+        <div class="route">
+          <div class="step">
+            <div class="step-icon">1</div>
+            <div class="step-text">
+              Vom Schild aus <strong>11 Meter nach vorne</strong> gehen.
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-icon">2</div>
+            <div class="step-text">
+              Danach <strong>37 Meter zur Seite</strong> suchen.
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-icon">3</div>
+            <div class="step-text">
+              Augen auf: Der Zielpunkt ist wahrscheinlich unscheinbarer,
+              als man denkt.
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card footer">
+      Folge den Zahlen, nicht dem Bauchgefühl. Im Volkspark gewinnt,
+      wer das Schild wie eine kleine geheime Karte liest.
+    </section>
+  </main>
 </body>
 </html>
+  <!-- Nächster Link: 3jd7ew.html -->
