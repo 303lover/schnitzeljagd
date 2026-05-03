@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>R1 Böhmischer GPX-Schatz R4 T1</title>
+  <title>Willkommen in Tchechien · R4 - T1 </title>
   <style>
     :root {
       font-family: "Comic Sans MS", "Comic Sans", cursive;
@@ -90,7 +90,7 @@
       text-align: center;
       font-size: 1.05rem;
       font-weight: 900;
-      line-height: 1.45;
+      line-height: 1.55;
       text-shadow:
         2px 2px 0 #000000,
         0 0 8px #000000;
@@ -104,6 +104,23 @@
       font-size: 1.25rem;
       text-transform: uppercase;
       text-decoration: underline wavy #d7141a;
+    }
+
+    .video-wrap {
+      margin: 0 0 20px;
+      border: 6px groove #ffffff;
+      box-shadow: 0 0 0 4px #d7141a, 0 0 0 8px #11457e;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
     }
 
     label {
@@ -140,7 +157,7 @@
       border-color: #ffffff;
     }
 
-    button, a.download-button {
+    button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -155,14 +172,13 @@
       font-family: inherit;
       font-size: 1.35rem;
       font-weight: 900;
-      text-decoration: none;
       text-transform: uppercase;
       cursor: pointer;
       text-shadow: 2px 2px 0 rgba(255,255,255,0.75);
       animation: pulse 0.55s infinite alternate;
     }
 
-    button:hover, a.download-button:hover {
+    button:hover {
       filter: saturate(2) contrast(1.3);
       transform: scale(1.04) rotate(1deg);
     }
@@ -186,8 +202,32 @@
       animation: blink 0.5s steps(1) infinite;
     }
 
-    .hidden {
+    a.download-button {
       display: none;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 16px;
+      padding: 16px;
+      border: 6px outset #ffffff;
+      border-radius: 0;
+      background: linear-gradient(90deg, #d7141a, #ffffff, #11457e, #ffffff, #d7141a);
+      color: #111111;
+      font-family: inherit;
+      font-size: 1.35rem;
+      font-weight: 900;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-shadow: 2px 2px 0 rgba(255,255,255,0.75);
+      animation: pulse 0.55s infinite alternate;
+      text-align: center;
+    }
+
+    a.download-button:hover {
+      filter: saturate(2) contrast(1.3);
+      transform: scale(1.04) rotate(1deg);
     }
 
     .marquee {
@@ -207,129 +247,89 @@
       animation: scroll 9s linear infinite;
     }
 
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
+    @keyframes blink { 50% { opacity: 0; } }
     @keyframes wobble {
       from { transform: rotate(-2deg) scale(1); }
-      to { transform: rotate(2deg) scale(1.03); }
+      to   { transform: rotate(2deg) scale(1.03); }
     }
-
     @keyframes pulse {
       from { transform: scale(1); }
-      to { transform: scale(1.035); }
+      to   { transform: scale(1.035); }
     }
-
     @keyframes scroll {
       from { transform: translateX(0); }
-      to { transform: translateX(-100%); }
+      to   { transform: translateX(-100%); }
     }
-
     @keyframes backgroundShake {
       from { background-position: 0 0; }
-      to { background-position: 9px 4px; }
+      to   { background-position: 9px 4px; }
     }
   </style>
 </head>
 <body>
   <main>
-    <span class="badge">První hádanka! Böhmischer Startschuss!</span>
-    <h1>R1.GPX</h1>
-    <p>Willkommen beim ersten Rätsel in Tschechien. Gib die geheimen Lösungsbuchstaben ein und öffne den Track wie ein durstiger Ritter das Burgtor.</p>
+    <span class="badge">🍺 Böhmisches Bier-Orakel! R4! 🍺</span>
+    <h1>🍺 B-I-R 🍺</h1>
 
-    <div class="poem">
-      <strong></strong>
-O Tschechien, Land von Burg und Stein,<br>
-dein Bier fließt hell in Krüge ein.<br>
-Da kommt Herr Aaron, Junggesell,<br>
-auf seinem Stahlross, flink und schnell.<br>
-<br>
-Kein Ross mit Huf, kein edler Rappe,<br>
-nein, Drahtesel mit Sattelkappe.<br>
-Er tritt die Kurbel, stolz und kühn,<br>
-durch Böhmens Täler, Hopfengrün.<br>
-<br>
-Der Krug erhebt sich, Schaum wird Kron’,<br>
-das Bier besingt den Heldensohn.<br>
-„Noch eins!“, ruft Aaron voller Macht,<br>
-bis selbst der Burggeist freundlich lacht.<br>
-<br>
-Hat er das Rätsel recht bezwungen,<br>
-wird ihm der Zauberpfad gesungen.<br>
-Die GPX, vom Tor bewacht,<br>
-zeigt ihm den weiten Weg der Nacht.<br>
-<br>
-So fahr dahin, du Reckenmann,<br>
-wo Bier und Karte weisen an.<br>
+    <p>Höre, Recke! Das heilige Lied des Gerstensaftes erklinget vor dir.<br>
+    Zähle, wie oft <strong>„Bier"</strong> UND <strong>„B-I-R"</strong> zusammen gesungen werden —<br>
+    und hämmere die Zahl ins Burgtor!</p>
+
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/G5pr6-biPSY"
+        title="Mehnersmoos - BIR"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
 
-    <form id="unlockForm">
-      <label for="solution">Böhmischer Geheim-Code</label>
-      <input id="solution" name="solution" type="text" autocomplete="off" placeholder="HIER DEN CODE REINHÄMMERN" />
-      <button type="submit">Burgtor prüfen!!!</button>
-    </form>
+    <div class="poem">
+      <strong>⚔ Die heilige Zählaufgabe ⚔</strong>
+      Wie oft erklinget „Bier" und „B-I-R"<br>
+      in diesem Lied der böhmischen Recken?<br>
+      Zähl' jeden Ruf, zähl' jeden Schrei,<br>
+      dann öffnet sich das Burgtor — sei dabei!
+    </div>
+
+    <label for="solution">Deine Zahl, Recke!</label>
+    <input id="solution" type="number" autocomplete="off" placeholder="ZAHL REINHÄMMERN" min="0" max="999" />
+    <button onclick="pruefen()">Burgtor prüfen!!!</button>
 
     <div id="message" class="message" aria-live="polite"></div>
 
-    <a id="downloadLink" class="download-button hidden" href="#" download="R1.gpx">R1.gpx aus dem Burgkeller ziehen</a>
+    <a id="downloadLink" class="download-button" href="GPX1.gpx" download="GPX1.gpx">
+      🗺 GPX1.gpx aus dem Burgkeller ziehen! 🗺
+    </a>
 
     <div class="marquee">
-      <span>+++ ČESKO! ČESKO! ČESKO! +++ BIER STARK +++ RÄTSEL ERBARMUNGSLOS +++ PASSWORT IST NOCH TEST +++</span>
+      <span>+++ ČESKO! ČESKO! ČESKO! +++ BIER STARK +++ ZÄHL JEDEN RUF +++ BIER + B-I-R = FREIHEIT +++ NA ZDRAVÍ! +++</span>
     </div>
   </main>
 
   <script>
-    const correctSolution = "TEST";
+    function pruefen() {
+      const eingabe = document.getElementById("solution").value.trim();
+      const msg = document.getElementById("message");
+      const dl = document.getElementById("downloadLink");
 
-    // Platzhalter-GPX. Den Inhalt später durch die echte R1.gpx ersetzen.
-    const gpxContent = `<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="R1 Czech Trash Download Website" xmlns="http://www.topografix.com/GPX/1/1">
-  <metadata>
-    <name>R1</name>
-  </metadata>
-  <trk>
-    <name>R1 Test Track</name>
-    <trkseg>
-      <trkpt lat="50.075539" lon="14.437800">
-        <ele>200</ele>
-      </trkpt>
-      <trkpt lat="50.076000" lon="14.438500">
-        <ele>205</ele>
-      </trkpt>
-    </trkseg>
-  </trk>
-</gpx>`;
-
-    const form = document.getElementById("unlockForm");
-    const input = document.getElementById("solution");
-    const message = document.getElementById("message");
-    const downloadLink = document.getElementById("downloadLink");
-
-    function createGpxDownloadUrl() {
-      const blob = new Blob([gpxContent], { type: "application/gpx+xml" });
-      return URL.createObjectURL(blob);
+      if (eingabe === "36") {
+        msg.textContent = "SPRÁVNĚ!!! DAS BURGTOR IST OFFEN!!!";
+        msg.className = "message success";
+        dl.style.display = "inline-flex";
+        dl.scrollIntoView({ behavior: "smooth" });
+      } else if (eingabe === "") {
+        msg.textContent = "⚠ GEBT EINE ZAHL EIN, TAUBHEMD!";
+        msg.className = "message error";
+      } else {
+        msg.textContent = "ŠPATNĚ!!! FALSCH GEZÄHLT, SAUFBRUDER!";
+        msg.className = "message error";
+      }
     }
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const enteredSolution = input.value.trim().toUpperCase();
-
-      if (enteredSolution === correctSolution) {
-        downloadLink.href = createGpxDownloadUrl();
-        downloadLink.classList.remove("hidden");
-        message.textContent = "SPRÁVNĚ!!! DAS BURGTOR IST OFFEN!!!";
-        message.className = "message success";
-      } else {
-        downloadLink.classList.add("hidden");
-        downloadLink.removeAttribute("href");
-        message.textContent = "ŠPATNĚ!!! DER KELLERMEISTER VERWEIGERT DEN TRACK!!!";
-        message.className = "message error";
-      }
+    document.getElementById("solution").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") pruefen();
     });
   </script>
 </body>
 </html>
-
-  <!-- Nächster Link: 3jd7ew.html -->
