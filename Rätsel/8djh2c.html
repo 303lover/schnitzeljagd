@@ -4,122 +4,279 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Das Wasser-Orakel R1 T8</title>
-
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at center, #3b2614 0%, #160d07 70%);
+      background: radial-gradient(circle at 30% 20%, #4a2c0a 0%, #1a0a03 60%, #000 100%);
       color: #f4df9c;
-      font-family: "Times New Roman", serif;
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
       display: flex;
       justify-content: center;
-      align-items: center;
-      text-align: center;
+      align-items: flex-start;
+      padding: 24px 12px 40px;
     }
 
     .site {
-      width: min(720px, 92vw);
-      padding: 28px;
-      border: 6px ridge #9b6b28;
-      background: #241509;
-      box-shadow:
-        0 0 30px #000,
-        inset 0 0 35px rgba(255, 190, 80, 0.12);
+      width: min(720px, 96vw);
+      padding: 32px 28px;
+      border: 7px ridge #9b6b28;
+      background: linear-gradient(180deg, #1e0e05 0%, #2a1609 50%, #1a0b04 100%);
+      box-shadow: 0 0 60px rgba(0,0,0,0.9), inset 0 0 50px rgba(200, 140, 40, 0.08);
+      position: relative;
+    }
+
+    .site::before {
+      content: "✦ ✦ ✦";
+      display: block;
+      text-align: center;
+      color: #6b4510;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      letter-spacing: 8px;
     }
 
     h1 {
-      margin: 0 0 18px;
-      font-size: clamp(2rem, 7vw, 4rem);
+      margin: 0 0 6px;
+      font-size: clamp(1.8rem, 7vw, 3.6rem);
       color: #ffcc55;
-      text-shadow:
-        3px 3px 0 #000,
-        0 0 12px #b33;
+      text-shadow: 3px 3px 0 #000, 0 0 18px #c44, 0 0 40px rgba(200, 80, 0, 0.3);
+      letter-spacing: 3px;
+    }
+
+    .subtitle {
+      color: #8a6030;
+      font-size: 0.85rem;
       letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
     }
 
-    .scroll {
+    .herold {
+      font-size: 0.78rem;
+      color: #6b4a20;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .scroll-triumph {
       margin: 0 auto 22px;
-      padding: 18px;
-      max-width: 560px;
-      background: #d6b56d;
-      color: #2a1607;
-      border: 4px double #5c3514;
-      box-shadow: inset 0 0 20px rgba(80, 40, 0, 0.45);
-      font-size: 1.35rem;
-      line-height: 1.45;
+      padding: 22px 24px;
+      max-width: 580px;
+      background: #c9a458;
+      color: #1e0c03;
+      border: 5px double #4a2c08;
+      box-shadow: inset 0 0 30px rgba(60, 30, 0, 0.5), 0 4px 12px rgba(0,0,0,0.6);
+      font-size: 1.2rem;
+      line-height: 1.7;
+      position: relative;
     }
 
-    .scroll p {
+    .scroll-triumph::before,
+    .scroll-triumph::after {
+      content: "☩";
+      display: block;
+      text-align: center;
+      font-size: 1.4rem;
+      color: #7a4a10;
+      margin: 4px 0;
+    }
+
+    .scroll-triumph p {
+      margin: 10px 0;
+      font-style: italic;
+    }
+
+    .scroll-triumph .poem-title {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #5c3408;
+      margin-bottom: 12px;
+    }
+
+    .divider {
+      margin: 10px auto;
+      width: 80%;
+      border: none;
+      border-top: 2px dashed #4a2c08;
+      opacity: 0.5;
+    }
+
+    .scroll-oracle {
+      margin: 0 auto 22px;
+      padding: 20px 24px;
+      max-width: 580px;
+      background: #bfa040;
+      color: #160a02;
+      border: 4px double #3c2206;
+      box-shadow: inset 0 0 20px rgba(40, 20, 0, 0.45), 0 4px 12px rgba(0,0,0,0.5);
+      font-size: 1.18rem;
+      line-height: 1.65;
+    }
+
+    .scroll-oracle::before {
+      content: "— — —";
+      display: block;
+      text-align: center;
+      color: #6b4010;
+      margin-bottom: 10px;
+      letter-spacing: 6px;
+    }
+
+    .scroll-oracle p {
       margin: 0;
+      font-style: italic;
     }
 
     .image-box {
-      margin-top: 20px;
-      padding: 12px;
-      border: 5px groove #7b1111;
-      background: #090909;
+      margin: 24px auto;
+      padding: 14px;
+      border: 6px groove #7b1111;
+      background: #050505;
+      max-width: 480px;
+      box-shadow: 0 0 20px rgba(180, 20, 20, 0.3);
+    }
+
+    .image-box .caption {
+      font-size: 0.78rem;
+      color: #7a3333;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
     }
 
     img {
       display: block;
       width: 100%;
-      max-width: 520px;
+      max-width: 440px;
       margin: 0 auto;
       border: 3px solid #ffdf8a;
-      image-rendering: auto;
+      filter: sepia(20%) contrast(1.05);
     }
 
     .warning {
-      margin-top: 18px;
-      color: #ff7777;
-      font-size: 0.95rem;
-      letter-spacing: 1px;
+      margin-top: 22px;
+      color: #ff6666;
+      font-size: 1rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      animation: blink 1.2s infinite;
+      animation: blink 1.4s infinite;
+      text-shadow: 0 0 10px rgba(255,60,60,0.5);
     }
 
     @keyframes blink {
-      50% {
-        opacity: 0.35;
-      }
+      50% { opacity: 0.3; }
+    }
+
+    .badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 18px 0 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: #3a1c06;
+      border: 2px ridge #7a4a10;
+      color: #c49040;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 12px;
     }
 
     .footer {
-      margin-top: 16px;
-      font-size: 0.85rem;
-      color: #a8894d;
+      margin-top: 18px;
+      font-size: 0.8rem;
+      color: #6a5030;
+      letter-spacing: 1px;
+      border-top: 1px solid #3a2010;
+      padding-top: 12px;
     }
+
+    .corner-deco {
+      position: absolute;
+      font-size: 1.6rem;
+      color: #5a3510;
+      line-height: 1;
+    }
+    .corner-deco.tl { top: 8px; left: 12px; }
+    .corner-deco.tr { top: 8px; right: 12px; }
+    .corner-deco.bl { bottom: 8px; left: 12px; }
+    .corner-deco.br { bottom: 8px; right: 12px; }
   </style>
 </head>
-
 <body>
   <main class="site">
+    <span class="corner-deco tl">⚜</span>
+    <span class="corner-deco tr">⚜</span>
+    <span class="corner-deco bl">⚜</span>
+    <span class="corner-deco br">⚜</span>
+
+    <div class="herold">Pergament der niederen Ordnung · Volkspark Dresden</div>
     <h1>☩ Das Wasser-Orakel ☩</h1>
+    <div class="subtitle">Tafel R1 · Tages-Quest 8 · Anno MMXXV</div>
 
-    <section class="scroll">
+    <section class="scroll-triumph">
+      <div class="poem-title">✦ Des Ritters Triumph ✦</div>
       <p>
-        Höret, Wandersmann, höret fein,<br>
-        wo rotes Zeichen trägt den Schein.<br><br>
-
-        Dort, wo das Wasser heimlich wacht,<br>
-        und tief im Grund die Quelle lacht,<br>
-        wo stumm das Nass zur Rettung speiht,<br>
-        liegt Euch das nächste Rätsel bereit.
+        Hört, wer da sucht auf Dresdens Höh'n,<br>
+        mit eisernem Rosse durch Parke geseh'n —<br>
+        du hast geritten, Ritter kühn,<br>
+        durch Volksparks Haine, frisch und grün.<br>
+      </p>
+      <hr class="divider">
+      <p>
+        Das erste Rätsel — nun gelöst!<br>
+        Die Bank hat's hergegeben, doch<br>
+        du mußt nicht weit mehr reiten noch,<br>
+        kein langer Weg liegt vor dir bloß,<br>
+        kein fremdes Land, kein Hügel groß —<br>
+      </p>
+      <hr class="divider">
+      <p>
+        Doch halt — dein Schlund brennt heiß wie Glut,<br>
+        der Durst verzehrt dein Reckenblut!<br>
+        Du keuchest, lechzest, jammerst laut —<br>
+        doch wisse, Ritter, sei nicht grau:<br><br>
+        Hier fließt kein Nass, hier harrt kein Krug,<br>
+        kein Wirt, kein Gerstensaft, kein Trug —<br>
+        die Rettung nahet, doch nicht hier —<br>
+        das Schild zeigt dir den Weg zum Bier!<br><br>
+        So leide noch ein kleines Weil,<br>
+        und folge schnell dem roten Schild,<br>
+        das dich ans Ziel des Durstes führt —<br>
+        dorthin, wo Kühles deinen Rachen rührt.
       </p>
     </section>
 
     <section class="image-box">
-      <img src="hydrantenschild.jpeg" alt="Hydrantenschild">
+      <div class="caption">☩ Das heilige Wasser-Zeichen ☩</div>
+      <img src="hydrantenschild.jpeg" alt="Hydrantenschild — das Zeichen des nächsten Rätsels">
     </section>
 
+    <div class="badge-row">
+      <div class="badge">🗡 Rätsel 1 · Gelöst</div>
+      <div class="badge">🏰 Volkspark · Dresden</div>
+      <div class="badge">⚔ Wasser-Quest aktiv</div>
+    </div>
+
     <div class="warning">
-      Suchet dort, wo das Wasser speiht.
+      ⚠ Suchet dort, wo das Wasser speiht ⚠
     </div>
 
     <div class="footer">
-      Volkspark Dresden · Questtafel der niederen Ordnung
+      Volkspark Dresden · Anno Domini · Schnitzeljagd der niederen Ordnung<br>
+      <span style="color:#4a3020;">Nur für wackere Recken auf eisernem Rosse</span>
     </div>
   </main>
 </body>
