@@ -20,7 +20,7 @@
     }
 
     .site {
-      width: min(800px, 96vw);
+      width: min(760px, 96vw);
       padding: 38px 32px;
       border: 7px ridge #9b6b28;
       background: linear-gradient(170deg, #200e04 0%, #2c1708 45%, #1a0b03 100%);
@@ -40,7 +40,7 @@
 
     h1 {
       text-align: center;
-      font-size: clamp(1.6rem, 6vw, 2.8rem);
+      font-size: clamp(1.6rem, 6vw, 3rem);
       color: #ffcc55;
       text-shadow: 2px 2px 0 #000;
       letter-spacing: 2px;
@@ -62,8 +62,8 @@
       padding: 26px;
       border: 6px double #5c3410;
       box-shadow: inset 0 0 35px rgba(80, 40, 0, 0.55), 0 5px 18px rgba(0,0,0,0.65);
-      line-height: 1.6;
-      font-size: 1.1rem;
+      line-height: 1.75;
+      font-size: 1.15rem;
     }
 
     .scroll-title {
@@ -73,44 +73,26 @@
       letter-spacing: 2px;
       margin-bottom: 18px;
       color: #5c3008;
-      border-bottom: 2px solid #5c3008;
-      display: inline-block;
-      width: 100%;
-      padding-bottom: 5px;
-    }
-
-    .map-container {
-      margin: 20px 0;
-      text-align: center;
-      background: rgba(0,0,0,0.05);
-      padding: 10px;
-      border: 1px solid #5c3808;
-    }
-
-    .map-image {
-      max-width: 100%;
-      height: auto;
-      filter: sepia(0.3) contrast(1.1);
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
 
     .quest-box {
       margin-top: 18px;
       padding: 16px;
-      border: 2px solid #7a4a10;
-      background: rgba(255,255,255,0.15);
+      border-left: 4px solid #7a4a10;
+      border-right: 4px solid #7a4a10;
+      background: rgba(0,0,0,0.08);
+      font-style: italic;
+    }
+
+    .divider {
+      margin: 18px 0;
+      border-top: 2px dashed #5c3808;
+      opacity: 0.5;
     }
 
     .highlight {
       font-weight: bold;
-      color: #5c3008;
-      text-decoration: underline;
-    }
-
-    .instruction {
-      margin-top: 15px;
-      font-weight: bold;
-      font-style: normal;
+      color: #3a1d00;
     }
 
     .footer {
@@ -121,6 +103,7 @@
       border-top: 1px solid #3a2010;
       padding-top: 12px;
     }
+
   </style>
 </head>
 
@@ -137,47 +120,53 @@
 
     <section class="scroll">
 
-      <div class="scroll-title">📜 Botschaft an den hohen Gesellen 📜</div>
+      <div class="scroll-title">📜 Die Botschaft der Gilde 📜</div>
 
       <p>
-        Seid gegrüßt, edler Recke auf dem stählernen Ross! Eure Reise durch das ferne Isergebirge hat Euch weit geführt, 
-        doch das Ende Eurer Junggesellen-Tage ist noch nicht besiegelt. Bevor Ihr das Tor zur letzten Taverne durchschreitet, 
-        verlangt die Gilde einen letzten Beweis Eures Mutes.
+        Seid gegrüßt, edler Recke auf dem stählernen Ross!
       </p>
-
-      <div class="map-container">
-        <!-- Einbindung der Karte -->
-        <img src="Schatzkarte JGA_2.png" alt="Schatzkarte JGA_2.png" class="map-image">
-        <p style="font-size: 0.8rem; margin-top: 5px; font-style: italic;">Das Pergament des Drachenrückens</p>
-      </div>
 
       <p>
-        Blicket wohl auf die Zeichnung. Die Linie ist Euer Schicksal, die Zacken Euer Schmerz. 
-        Sie weist den Pfad gen Osten, dorthin, wo die <span class="highlight">zwei blauen Augen der Erde</span> in der Tiefe ruhen.
+        Eure Reise durch das ferne Isergebirge hat Euch weit geführt,
+        doch das Ende Eurer Junggesellen-Tage ist noch nicht besiegelt.
+        Bevor Ihr das Tor zur letzten Taverne durchschreitet und der Freiheit entsagt,
+        verlangt die Gilde einen letzten Beweis Eurer Sinne und Eures Mutes.
       </p>
+
+      <p>
+        Blicket auf das Pergament, das man Euch reichte.
+        Die Linie ist Euer Schicksal, die Zacken Euer Schmerz.
+        Sie zeigt den Pfad des Drachenrückens, den Ihr nun bezwingen müsst.
+      </p>
+
+      <div class="divider"></div>
 
       <div class="quest-box">
-        <p><span class="highlight">Der Befehl des Verstecks:</span></p>
-        <p>
-          Suchet an der Stelle, wo der Pfad sich neigt, nach dem <span class="highlight">Wappen des gelb-weißen Banners</span> 
-          auf der linken Seite des Weges.
-        </p>
-        
-        <p class="instruction">
-          Steigt ab und blicket HINTER das Antlitz dieses Schildes! Dort wartet der letzte Tag auf Euch.
-        </p>
-      </div>
 
-      <p style="margin-top: 15px;">
-        Doch gebt Acht: Sobald Ihr den Tag in Händen haltet, ist Euch jedes Wort untersagt, 
-        bis Ihr die Pforte des Riesigen Fasses durchschreitet. Schweigt oder zahlet mit Goldwasser!
-      </p>
+        <p>
+          <span class="highlight">Eure Quest:</span><br><br>
+
+          Folget dem geschundenen Pfad gen Osten, dorthin, wo die Sonne den Kamm küsst.
+          Euer Ziel ist der Ort, an dem die zwei blauen Augen der Erde
+          (die Seen bei den Koordinaten) in der Tiefe ruhen.
+        </p>
+
+        <p>
+          Doch achtet wohl auf das Wegesbord!
+        </p>
+
+        <p>
+          An der Stelle, wo der Pfad sich neigt und der Blick auf das große Ziel frei wird,
+          suchet nach dem Wappen des gelb-weißen Banners.
+        </p>
+
+      </div>
 
     </section>
 
     <div class="footer">
       Anno Domini · Gildenquest der Schnitzeljagd<br>
-      <span>Nur wer die Karte liest, findet den letzten Tag</span>
+      <span>Nur wer den Pfad versteht, findet das Zeichen</span>
     </div>
 
   </main>
