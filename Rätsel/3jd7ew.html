@@ -71,11 +71,22 @@
             margin-top: 30px;
         }
 
+        #solutionInputs {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
         .solution-box input {
-            width: 40px;
+            flex: 1;
+            min-width: 0;
+            max-width: 50px;
+            height: 50px;
             text-align: center;
-            margin: 5px;
             font-size: 1.2em;
+            margin: 0;
         }
 
         #nextButton, #finalPoem {
@@ -129,7 +140,7 @@
 <body>
 
 <div class="container">
-    <h1>🎵 Sing für mich 🎵</h1>
+    <h1>Sing für mich</h1>
 
     <div class="poem">
         Hör gut hin, was Stimmen sagen,<br>
@@ -145,7 +156,7 @@
     <button onclick="showHint()">🎧 Hilfe</button>
 
     <div class="solution-box">
-        <h2>🔑 Lösungswort</h2>
+        <h2>Lösungswort</h2>
         <div id="solutionInputs"></div>
         <br>
         <button onclick="checkSolution()">Lösung prüfen</button>
