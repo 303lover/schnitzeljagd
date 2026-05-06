@@ -1,13 +1,201 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Rätsel 4</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchstabensalat - R4</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+      background: #1c1a17;
+      color: #f5e6c8;
+      text-align: center;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
+    .poem {
+      font-style: italic;
+      margin-bottom: 20px;
+      line-height: 1.6em;
+    }
+    .hint {
+      margin: 10px 0;
+      opacity: 0.8;
+      display:none;
+    }
+    .code {
+      background:#2a2622;
+      border:2px solid #a67c52;
+      padding:10px;
+      margin:10px 0;
+      border-radius:8px;
+      font-size:1.1em;
+    }
+    button {
+      background: #6b4f2a;
+      color: #f5e6c8;
+      border: none;
+      padding: 10px 15px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .input-wrapper {
+      position: relative;
+      display: inline-block;
+      margin: 5px;
+    }
+    .input-wrapper input {
+      padding: 10px 30px 10px 10px;
+      margin: 0;
+      border-radius: 5px;
+      border: none;
+      text-align: center;
+      width: 120px;
+    }
+    .input-wrapper::after {
+      content: attr(data-label);
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #1c1a17;
+      font-weight: bold;
+      pointer-events: none;
+    }
+    #popup {
+      display: none;
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.8);
+      align-items:center;
+      justify-content:center;
+    }
+    #popupContent {
+      background:#2a2622;
+      padding:20px;
+      border:2px solid #a67c52;
+    }
+    #result { margin-top:10px; font-weight:bold; }
+    #cooldown { margin-top:10px; color:#d4b483; }
+  </style>
 </head>
 <body>
-  <h1>Rätsel 4</h1>
-  <p>Ich spreche ohne Mund und höre ohne Ohren. Was bin ich?</p>
+<div class="container">
+  <h1>📜 Buchstabensalat 📜</h1>
 
-  <!-- Lösung: Echo -->
-  <!-- Nächster Link: 83jd7s.html -->
+  <div class="poem">
+    Ein Wirrwarr aus Zeichen, scheinbar verdreht,<br>
+    doch jedes hat seinen Platz, wenn man es versteht.<br>
+    Was fehlt dir vielleicht, ist nicht schwer zu sehen –<br>
+    denk an das ZZZERO, das als Zeichen kann stehen.<br>
+  </div>
+
+  <div id="hints">
+    <div class="hint">A + B = 3 | Z + Z = 0</div>
+    <div class="hint">Buchstaben tragen Zahlen in sich</div>
+    <div class="hint">Das Alphabet ist dein Schlüssel</div>
+  </div>
+
+  <div class="code">EZEMIZ</div>
+  <div class="code">OZWM</div>
+
+  <p>Entschlüssle die Koordinaten.</p>
+
+  <button onclick="useHint()">🔍 Hinweis</button>
+
+  <div>
+    <h3>Koordinaten</h3>
+    <div class="input-wrapper" data-label="N">
+      <input id="north" placeholder="Breitengrad" type="text">
+    </div>
+    <div class="input-wrapper" data-label="E">
+      <input id="east" placeholder="Längengrad" type="text">
+    </div>
+    <br>
+    <button onclick="checkCoords()">Prüfen</button>
+    <div id="cooldown"></div>
+    <div id="result"></div>
+  </div>
+</div>
+
+<div id="popup">
+  <div id="popupContent">
+    <div id="popupText"></div>
+    <img id="popupImg" src="bilder/Aaron.png" style="max-width:100%; display:none;">
+    <br>
+    <button onclick="closePopup()">Schließen</button>
+  </div>
+</div>
+
+<script>
+  let hintCount = 0;
+  let cooldown = false;
+
+  function useHint(){
+    const popup = document.getElementById('popup');
+    const text = document.getElementById('popupText');
+    const img = document.getElementById('popupImg');
+
+    if(hintCount === 0){
+      if(confirm("Challenge für einen Hinweis annehmen?")){
+        text.innerHTML = "Zeige mir, dass du die Buchstaben kannst, indem du deinen Namen tanzt.";
+        img.style.display = 'block';
+        hintCount++;
+      }
+    } else {
+      text.innerHTML = "Frag den Buchstabenmeister.";
+      img.style.display = 'none';
+    }
+    popup.style.display = 'flex';
+  }
+
+  function closePopup(){
+    document.getElementById('popup').style.display = 'none';
+
+    if(hintCount === 1){
+      const hints = document.querySelectorAll('.hint');
+      hints.forEach(h => h.style.display = 'block');
+    }
+  }
+
+  function checkCoords(){
+    if(cooldown) return;
+
+    const n = document.getElementById('north').value.replace(/[^0-9]/g,'');
+    const e = document.getElementById('east').value.replace(/[^0-9]/g,'');
+
+    if(n === "5051390" && e === "1502313"){
+      document.getElementById('result').innerHTML = "🎉 Richtig!<br>Finde den kürzesten Weg mit deiner Karten-App und folge den Koordinaten. <br> Spiele mit der Schranke damit sie dir den Weg zeigt statt versperrt.";
+      document.getElementById('cooldown').textContent = '';
+      return;
+    } else {
+      document.getElementById('result').textContent = "❌ Falsch";
+    }
+
+    startCooldown();
+  }
+
+  function startCooldown(){
+    cooldown = true;
+    let time = 60;
+    const cd = document.getElementById('cooldown');
+
+    const interval = setInterval(()=>{
+      cd.textContent = `Warte ${time}s bis zum nächsten Versuch...`;
+      time--;
+      if(time < 0){
+        clearInterval(interval);
+        cd.textContent = '';
+        cooldown = false;
+      }
+    },1000);
+  }
+</script>
 </body>
 </html>

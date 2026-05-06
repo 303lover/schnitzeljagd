@@ -1,1 +1,337 @@
-<!DOCTYPE html><html><head>  <title>Rätsel 2</title></head><body>  <h1>Rätsel 2</h1>  <p>Ich spreche ohne Mund und höre ohne Ohren. Was bin ich?</p>  <!-- Lösung: Echo -->  <!-- Nächster Link: p2lmq.html --></body></html>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sing für mich - R2</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background: #1c1a17;
+            color: #f5e6c8;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        .poem {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6em;
+        }
+
+        .song {
+            background: #2a2622;
+            border: 2px solid #a67c52;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        button {
+            background: #6b4f2a;
+            color: #f5e6c8;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #8a6a3a;
+        }
+
+        .active-song {
+            background: #9a7a4a !important;
+            box-shadow: 0 0 10px rgba(245, 230, 200, 0.3);
+        }
+
+        input {
+            margin-top: 10px;
+            padding: 8px;
+            width: 80%;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+        }
+
+        .solution-box {
+            margin-top: 30px;
+        }
+
+        .solution-box input {
+            width: 40px;
+            text-align: center;
+            margin: 5px;
+            font-size: 1.2em;
+        }
+
+        #nextButton, #finalPoem {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #cooldown {
+            margin-top: 10px;
+            color: #d4b483;
+        }
+
+        #errorMsg {
+            color: #ff6b6b;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        #successMsg {
+            color: #7CFCA3;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Popup */
+        #hintPopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        #hintContent {
+            background: #2a2622;
+            border: 2px solid #a67c52;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+        }
+
+        .closeBtn {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎵 Sing für mich 🎵</h1>
+
+    <div class="poem">
+        Hör gut hin, was Stimmen sagen,<br>
+        versteckt in Liedern, alten Klagen.<br>
+        Wer da singt, ist nicht egal,<br>
+        vielleicht führt dich dies zum Ziel einmal.<br>
+    </div>
+
+
+
+    <div id="songs"></div>
+
+    <button onclick="showHint()">🎧 Hilfe</button>
+
+    <div class="solution-box">
+        <h2>🔑 Lösungswort</h2>
+        <div id="solutionInputs"></div>
+        <br>
+        <button onclick="checkSolution()">Lösung prüfen</button>
+        <div id="cooldown"></div>
+        <div id="errorMsg"></div>
+        <div id="successMsg"></div>
+    </div>
+
+    <button id="nextButton" onclick="goNext()">Weiter zur nächsten Etappe</button>
+
+    <div id="finalPoem" class="poem">
+        Puh, gerade so – fast um Kopf und Kragen gesungen.<br>
+        Doch irgendwie hast du dich hindurchgerungen.<br>
+        Manchmal ist Glück nur knapp zur Hand,<br>
+        doch klug ist, wer vorsorgt – wohlbekannt.<br>
+        Behalt es im Sinn, wenn der nächste Tag erwacht:<br>
+        Ein Ass gehört stets in die Hinterhand gebracht.
+    </div>
+
+</div>
+
+<!-- Popup -->
+<div id="hintPopup">
+    <div id="hintContent">
+        <div id="hintText"></div>
+        <button class="closeBtn" onclick="closeHint()">Schließen</button>
+    </div>
+</div>
+
+<script>
+    const totalSongs = 7;
+    let cooldownActive = false;
+    let hintUsed = false;
+
+    const songsDiv = document.getElementById('songs');
+    for (let i = 1; i <= totalSongs; i++) {
+        songsDiv.innerHTML += `
+    <div class="song">
+      <button onclick="playSong(${i})">▶️ Lied ${i} abspielen</button><br>
+      <input type="text" placeholder="Lösung eintragen (Notizen möglich)">
+      <audio id="song${i}">
+        <source src="audio/song${i}.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  `;
+    }
+
+    function playSong(i) {
+        const currentAudio = document.getElementById('song' + i);
+        const currentBtn = currentAudio.parentElement.querySelector('button');
+
+        // If the song is already playing, pause it
+        if (!currentAudio.paused) {
+            currentAudio.pause();
+            currentBtn.classList.remove('active-song');
+            return;
+        }
+
+        // Stop all other songs
+        for (let j = 1; j <= totalSongs; j++) {
+            const audio = document.getElementById('song' + j);
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        // Remove active class from all play buttons
+        const buttons = document.querySelectorAll('.song button');
+        buttons.forEach(btn => btn.classList.remove('active-song'));
+
+        // Play selected song and add active class
+        currentAudio.play();
+        
+        if (currentBtn) {
+            currentBtn.classList.add('active-song');
+        }
+
+        // Remove active class when song ends
+        currentAudio.onended = function() {
+            currentBtn.classList.remove('active-song');
+        };
+    }
+
+    const solutionDiv = document.getElementById('solutionInputs');
+    for (let i = 0; i < totalSongs; i++) {
+        solutionDiv.innerHTML += `<input type="text" maxlength="1" oninput="moveNext(this, ${i})" onkeydown="handleBackspace(event, ${i})">`;
+    }
+
+    function moveNext(current, index) {
+        const inputs = document.querySelectorAll('#solutionInputs input');
+        const value = current.value;
+
+        if (value.length > 1) {
+            for (let i = 0; i < value.length && index + i < inputs.length; i++) {
+                inputs[index + i].value = value[i];
+            }
+            const nextIndex = index + value.length;
+            if (inputs[nextIndex]) inputs[nextIndex].focus();
+            return;
+        }
+
+        if (value && inputs[index + 1]) {
+            inputs[index + 1].focus();
+        }
+    }
+
+    function handleBackspace(event, index) {
+        const inputs = document.querySelectorAll('#solutionInputs input');
+
+        if (event.key === 'Backspace' && !event.target.value && index > 0) {
+            inputs[index - 1].focus();
+        }
+    }
+
+    function checkSolution() {
+        if (cooldownActive) return;
+
+        const inputs = document.querySelectorAll('#solutionInputs input');
+        let word = '';
+
+        inputs.forEach(input => {
+            word += input.value.toLowerCase();
+        });
+
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+
+        if (word === 'abfahrt') {
+            document.getElementById('nextButton').style.display = 'inline-block';
+            document.getElementById('finalPoem').style.display = 'block';
+
+            errorMsg.textContent = '';
+            successMsg.textContent = '🎉 Richtig! Herzlichen Glückwunsch!';
+            document.getElementById('cooldown').textContent = '';
+
+            document.getElementById('nextButton').scrollIntoView({ behavior: 'smooth' });
+            return;
+        } else {
+            successMsg.textContent = '';
+            errorMsg.textContent = 'Leider falsch';
+        }
+
+        startCooldown();
+    }
+
+    function startCooldown() {
+        cooldownActive = true;
+        let timeLeft = 60;
+        const cooldownDiv = document.getElementById('cooldown');
+
+        const interval = setInterval(() => {
+            cooldownDiv.textContent = `Warte ${timeLeft}s bis zum nächsten Versuch...`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(interval);
+                cooldownDiv.textContent = '';
+                cooldownActive = false;
+            }
+        }, 1000);
+    }
+
+    function goNext() {
+        window.location.href = "gpx/gpx_2.gpx";
+    }
+
+    function showHint() {
+        const popup = document.getElementById('hintPopup');
+        const text = document.getElementById('hintText');
+
+        if (!hintUsed) {
+            text.innerHTML = `Wer den leichten Weg begehrt,<br>
+zahlt den Preis, wie es sich gehört.<br>
+Ein Trunk, ein Lied, laut vorgetragen –<br>
+dann werd ich dir mehr vom Rätsel sagen.`;
+            hintUsed = true;
+        } else {
+            text.innerHTML = "Du weißt, was zu tun ist 😏";
+        }
+
+        popup.style.display = 'flex';
+    }
+
+    function closeHint() {
+        document.getElementById('hintPopup').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

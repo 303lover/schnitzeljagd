@@ -1,13 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Rätsel 5</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loop</title>
+  <style>
+    body { margin:0; font-family:Georgia, serif; background:#1c1a17; color:#f5e6c8; text-align:center; }
+    .container { max-width:700px; margin:auto; padding:20px; }
+    h1 { font-size:2.5em; text-shadow:2px 2px 4px black; }
+    .poem { font-style:italic; margin-bottom:20px; line-height:1.6em; }
+    .choice { display:flex; justify-content:space-around; margin:20px 0; }
+    .option { background:#2a2622; border:2px solid #a67c52; padding:20px; border-radius:10px; width:40%; cursor:pointer; }
+    .option:hover { background:#3a332c; }
+    button { background:#6b4f2a; color:#f5e6c8; border:none; padding:10px 15px; margin:10px; border-radius:5px; cursor:pointer; }
+    #popup, #hintPopup { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); align-items:center; justify-content:center; }
+    #popupContent, #hintContent { background:#2a2622; border:2px solid #a67c52; padding:20px; border-radius:10px; }
+    .emoji { font-size:2em; cursor:pointer; }
+  </style>
 </head>
 <body>
-  <h1>Rätsel 5</h1>
-  <p>Ich spreche ohne Mund und höre ohne Ohren. Was bin ich?</p>
 
-  <!-- Lösung: Echo -->
-  <!-- Nächster Link: 87sh9w.html -->
+<div class="container" id="startScreen">
+  <h1>🔁 Loop 🔁</h1>
+  <p>So sehen wir uns wieder...</p>
+  <div class="emoji" onclick="emojiClick()">😈</div>
+  <br>
+  <button onclick="startGame()">Starten</button>
+  <audio id="laugh" src="audio/laugh.mp3"></audio>
+</div>
+
+<div class="container" id="gameScreen" style="display:none;">
+  <h1>🔁 Loop 🔁</h1>
+  <div class="poem">
+    Du wählst und gehst, doch drehst im Kreis,<br>
+    bis eine Spur dich endlich weist.<br>
+    Der Anfang zählt, mehr als du denkst,<br>
+    wenn du die Reihenfolge lenkst.
+  </div>
+
+  <button onclick="openHint()">🔍 Hinweis</button>
+
+  <div id="game"></div>
+
+  <div id="result"></div>
+  <button id="restart" onclick="goStart()" style="display:none;">Zurück zum Anfang</button>
+  <button id="next" onclick="goNext()" style="display:none;">Freiheit</button>
+</div>
+
+<div id="popup">
+  <div id="popupContent">
+    <p>Challenge bestanden?</p>
+    <button onclick="confirmChoice(true)">Ja</button>
+    <button onclick="confirmChoice(false)">Nein</button>
+  </div>
+</div>
+
+<div id="hintPopup">
+  <div id="hintContent">
+    <div id="hintText">Höre den Rätselmeister...</div>
+    <button onclick="revealHint()">Weiter</button>
+    <button onclick="closeHint()">Schließen</button>
+  </div>
+</div>
+
+<script>
+  let step = 0;
+  let choices = [];
+  let pendingChoice = null;
+  let emojiClicks = 0;
+
+  const rounds = [
+    {a:"Liegestütze", b:"Plank"},
+    {a:"Bier öffnen", b:"Austrinken"},
+    {a:"Rad", b:"Situps"},
+    {a:"Trinken (Shot)", b:"Yoga-Pose halten"},
+    {a:"Tanzen", b:"Yodeln"}
+  ];
+
+  // ergibt echtes Wort: "SBSSA" (kannst du ändern, z.B. "SALAT" etc.)
+  const correct = ["Plank","Austrinken","Rad","Trinken (Shot)","Yodeln"];
+
+  function startGame(){
+    document.getElementById('startScreen').style.display='none';
+    document.getElementById('gameScreen').style.display='block';
+    render();
+  }
+
+  function goStart(){
+    step=0; choices=[];
+    document.getElementById('result').textContent='';
+    document.getElementById('restart').style.display='none';
+    document.getElementById('next').style.display='none';
+    document.getElementById('gameScreen').style.display='none';
+    document.getElementById('startScreen').style.display='block';
+  }
+
+  function render(){
+    if(step>=rounds.length){ check(); return; }
+    const r=rounds[step];
+    document.getElementById('game').innerHTML=`
+    <div class="choice">
+      <div class="option" onclick="selectOption('${r.a}')">${r.a}</div>
+      <div class="option" onclick="selectOption('${r.b}')">${r.b}</div>
+    </div>`;
+  }
+
+  function selectOption(val){
+    pendingChoice=val;
+    document.getElementById('popup').style.display='flex';
+  }
+
+  function confirmChoice(success){
+    document.getElementById('popup').style.display='none';
+    if(success){
+      choices.push(pendingChoice);
+      step++;
+      render();
+    }
+  }
+
+  function check(){
+    const res=document.getElementById('result');
+    const initials=choices.map(c=>c[0]).join('');
+
+    if(JSON.stringify(choices)===JSON.stringify(correct)){
+      res.innerHTML=`🎉 Glückwunsch! (${initials}) Du bist frei! <br> Suche die Säulen wo sich die Pfade kreuzen`;
+      document.getElementById('next').style.display='inline-block';
+    } else {
+      res.innerHTML="❌ DU BIST WEITER IM LOOP GEFANGEN";
+      document.getElementById('restart').style.display='inline-block';
+    }
+  }
+
+  function goNext(){ window.location.href="gpx/gpx_5.gpx"; }
+
+  function openHint(){ document.getElementById('hintPopup').style.display='flex'; }
+
+  function revealHint(){
+    document.getElementById('hintText').textContent = "PARTY PARTY PARTY!!!";
+  }
+
+  function closeHint(){ document.getElementById('hintPopup').style.display='none'; }
+
+  function emojiClick(){
+    emojiClicks++;
+    if(emojiClicks===3){ document.querySelector('.emoji').textContent='😤'; }
+  }
+
+  window.onload=()=>{ document.getElementById('laugh').play().catch(()=>{}); };
+</script>
 </body>
 </html>
